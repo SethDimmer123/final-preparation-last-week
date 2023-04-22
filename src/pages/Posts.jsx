@@ -28,6 +28,12 @@ async function fetchPosts(userId) {
   //the posts will re-render if loading changes
 }
 
+function onSearchKeyPress(key) {
+    if(key === 'Enter'){
+        onSearch()
+    }
+}
+
   useEffect(() => {
     fetchPosts();
   }, []); // id is now showing up in console i need to render posts
