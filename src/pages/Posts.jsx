@@ -13,6 +13,8 @@ function Posts() {
 //   useEffect will be loading 
 // after the fetching of the posts it will stop loading
 
+const [searchId, setSearchId] = useState(id);
+
 function onSearch() {
     console.log('onSearch()')
 }
@@ -36,7 +38,7 @@ function onSearch() {
         <button>← Back</button>
         <div className="post__search--container">
           <label className="post__search--label">Search by Id</label>
-          <input type="number" onChange={() => console.log('changed')} />
+          <input type="number" value={searchId} onChange={(event) => setSearchId(event.target.value)} />
           <button onClick={() => onSearch()} >Enter</button>{/*creating a function for enter button to work */}
         </div>
       </div>
