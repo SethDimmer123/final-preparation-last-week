@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 // how to do query strings
-import { useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Posts() {
+    let navigate = useNavigate();
   const { id } = useParams();
   const [posts, setPosts] = useState([]); // i need an empty array for the map method to work
   // setting the posts to a useState i use it to declare a variable so i can use it in the return.
 
-  const [loading,setLoading] = useState(true)// adding a loading state
+  const [loading,setLoading] = useState()// adding a loading state
   // i set it to true because as soon as the loading mounts the
 //   useEffect will be loading 
 // after the fetching of the posts it will stop loading
@@ -20,6 +21,7 @@ function onSearch() {
 }
 //this is how to fetch posts on mount
 async function fetchPosts(userId) {
+    setLoading(true)//skeleton loading state when pressing Enter
   const { data } = await axios.get(
     `https://jsonplaceholder.typicode.com/posts?userId=${userId || id}`
   );
@@ -41,7 +43,9 @@ function onSearchKeyPress(key) {
   return (
     <>
       <div className="post__search">
-        <button>← Back</button>
+        {/* <Link to="/"> */}
+        <button onClick={() => navigate('/')}>← Back</button>
+        {/* </Link> */}
         <div className="post__search--container">
           <label className="post__search--label">Search by Id</label>
           <input type="number" value={searchId} onChange={(event) => setSearchId(event.target.value)}
@@ -83,3 +87,7 @@ export default Posts;
 // added axios 15:49
 
 // npm add axios
+
+// styling homepage 41:31
+
+
