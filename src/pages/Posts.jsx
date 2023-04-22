@@ -8,9 +8,12 @@ function Posts() {
     
     useEffect(() => {// this runs everytime page mounts(loads)
         async function fetchPosts(){//in react i want a async inside a useEffect i put an async function
-            const response = await axios.get("https://jsonplaceholder.typicode.com/posts/1")
+            const { data } = await axios.get("https://jsonplaceholder.typicode.com/posts?userId=1")// 1 is hardcoded 
+            // const response
+        //  destructing my response
             // console.log("mounted")
-            console.log(response.data);//now im getting the data
+            // console.log(response.data);//now im getting the data
+            console.log(data);
         }
         fetchPosts() // call the function
     },[])
