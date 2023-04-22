@@ -16,19 +16,19 @@ function Posts() {
 const [searchId, setSearchId] = useState(id);
 
 function onSearch() {
-    console.log('onSearch()')
+    fetchPosts(searchId)
+}
+//this is how to fetch posts on mount
+async function fetchPosts(userId) {
+  const { data } = await axios.get(
+    `https://jsonplaceholder.typicode.com/posts?userId=${userId || id}`
+  );
+  setPosts(data);
+  setLoading(false)
+  //the posts will re-render if loading changes
 }
 
   useEffect(() => {
-    //this is how to fetch posts on mount
-    async function fetchPosts() {
-      const { data } = await axios.get(
-        `https://jsonplaceholder.typicode.com/posts?userId=${id}`
-      );
-      setPosts(data);
-      setLoading(false)
-      //the posts will re-render if loading changes
-    }
     fetchPosts();
   }, []); // id is now showing up in console i need to render posts
 
