@@ -13,6 +13,10 @@ function Posts() {
 //   useEffect will be loading 
 // after the fetching of the posts it will stop loading
 
+function onSearch() {
+    console.log('onSearch()')
+}
+
   useEffect(() => {
     //this is how to fetch posts on mount
     async function fetchPosts() {
@@ -32,8 +36,8 @@ function Posts() {
         <button>← Back</button>
         <div className="post__search--container">
           <label className="post__search--label">Search by Id</label>
-          <input type="number" />
-          <button>Enter</button>
+          <input type="number" onChange={() => console.log('changed')} />
+          <button onClick={() => onSearch()} >Enter</button>{/*creating a function for enter button to work */}
         </div>
       </div>
       {
@@ -49,9 +53,9 @@ function Posts() {
       </div>
             ))
         ) : (
-            posts.map((post,index) => (
+            posts.map((post) => (
                 //mapping over every post
-                 <div className="post" key={index}>
+                 <div className="post" key={post.id}>
                   <div className="post__title">{post.title}</div>
                   <p className="post__body">{post.body}</p>
                 </div>
