@@ -14,7 +14,7 @@ function Posts() {
 //   useEffect will be loading 
 // after the fetching of the posts it will stop loading
 
-const [searchId, setSearchId] = useState(id);
+const [searchId, setSearchId] = useState(id); 
 
 function onSearch() {
     fetchPosts(searchId)
