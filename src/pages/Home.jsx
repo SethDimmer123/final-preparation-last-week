@@ -1,46 +1,50 @@
-import React, {useEffect} from 'react'
+import React, { useEffect, useState } from "react";
 // install react-router-dom when first creating react app
-import { useParams } from 'react-router-dom'; 
+import axios from "axios";
+import {useNavigate} from"react-router-dom";
 
 function Home() {
-  // https://jsonplaceholder.typicode.com/users i need to hit this API
-  const {id } = useParams();// gives me an object in console
-  // console.log(fetch("https://jsonplaceholder.typicode.com/users")) //1. this will give me an error 
-  // so i call it on mount.
+  const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
+  async function getUsers() {
+    const { data } = await axios.get("https://jsonplaceholder.typicode.com/users"); // axios.get returns my data
+    setUsers(data); //now that i have the data i can set the users to the data which re-renders the users component when the user changes
+  }
 
-  useEffect(() => {   // 2. calling API on mount which means the page will run everytime page loads
-    async function fetchUsers() {// 4. i created an async function inside since i have a useEffect and then put the await 
-      const data = await fetch("https://jsonplaceholder.typicode.com/users")// 3. i used fetch first to fetch data
-      console.log(data)// i have my promise in console
-      // 4. with axios i only need to await 1 time and not 2
-    }
-  }, []);
+  useEffect(() => {
+    getUsers()
+  },[])
   return (
     <div className="container">
-  <div className="row">
-    <div className="user-list">
-      <div className="user">
-        <div className="user-card">
-          <div className="user-card__container">
-        3.    <h3>user.name</h3>
-            <p>
-              <b>Email:</b> user.email
-            </p>
-            <p>
-              <b>Phone:</b> user.phone
-            </p>
-            <p>
-              <b>Website:</b>
-              user.website
-            </p>
+      <div className="row">
+        <div className="user-list">
+          {users.map((user) => ( // i used parentheses instead of curly brackets so i do not have to write return under the curly brackets.
+          //network tab lets me prove the key for user id
+          <div className="user" key={user.id} onClick={() => navigate(`${user.id}`)}>
+             {/*navigate to the user id when i click i use naviagte for routing  */}
+            <div className="user-card">
+              <div className="user-card__container">
+                 <h3>{user.name}</h3>
+                <p>
+                  <b>Email:</b> {user.email}
+                </p>
+                <p>
+                  <b>Phone:</b> {user.phone}
+                </p>
+                <p>
+                  <b>Website:</b>
+                  {user.website}
+                </p>
+              </div>
+            </div>
           </div>
+          ))
+          }
         </div>
       </div>
     </div>
-  </div>
-</div>
-  )
+  );
 }
 
-export default Home
+export default Home;
