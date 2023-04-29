@@ -1,8 +1,10 @@
 import React from 'react'
 // install react-router-dom when first creating react app
+import { useParams } from 'react-router-dom'; 
 
 function Home() {
   // https://jsonplaceholder.typicode.com/users i need to hit this API
+  const params = useParams();// gives me an object in console
   return (
     <div className="container">
   <div className="row">
