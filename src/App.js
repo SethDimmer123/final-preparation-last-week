@@ -10,9 +10,11 @@ function App() {
       <div className="App">
         <Routes>
           <Route path='/' element={ <Home />}></Route>{/**home route "/" */}
-          <Route path=':id' element={<Posts />}></Route>{/**dynamic route is the parent of the home */}
+          <Route path=':id' element={<Posts />}></Route>{
+          /**dynamic route is the parent of the home 
+           * /:id
+          */}
         </Routes>
-
       </div>
     </Router>
   );
